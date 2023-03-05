@@ -1,0 +1,35 @@
+replicaCount: 1
+
+image:
+  repository: mariadb
+  pullPolicy: Always
+  tag: "10.7.7"
+
+nameOverride: "mariadb"
+fullnameOverride: "mariadb"
+
+service:
+  type: ClusterIP
+  port: 3306
+
+resources:
+  limits:
+    cpu: 1
+    memory: 1Gi
+  requests:
+    cpu: 500m
+    memory: 500Mi
+
+nodeSelector:
+  dedicated: bootcamp
+
+pvc:
+  storage: 1Gi
+  accessModes: ReadWriteMany
+  storageClassName: csi-cinder-high-speed
+
+database: 
+  name: "solidinvoicebootcamp"
+  user: "solidinvoicebootcamp"
+  password: "12345678"
+  rootPassword: "12345678"

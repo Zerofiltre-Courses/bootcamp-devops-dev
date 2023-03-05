@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb-pvc
+  namespace: zerofiltre-bootcamp
+  labels:
+    dedicated: bootcamp
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  storageClassName: csi-cinder-high-speed
+  volumeMode: Filesystem
+  volumeName: mariadb-pv

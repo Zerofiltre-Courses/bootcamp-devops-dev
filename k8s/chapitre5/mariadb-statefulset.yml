@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb-statefulset
+  namespace: zerofiltre-bootcamp 
+  labels:
+    app: mariadb
+spec:
+  serviceName: "mariadb-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb 
+        image: mariadb:10.7.7
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: mariadb-config
+              key: MARIADB_DATABASE
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: MARIADB_ROOT_PASSWORD
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: MARIADB_USER
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: MARIADB_PASSWORD            
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - name: mariadb-volume
+          mountPath: /var/lib/mysql 
+      volumes: 
+      - name: mariadb-volume
+        persistentVolumeClaim:
+          claimName: mariadb-pvc      
+      nodeSelector:
+        dedicated: bootcamp

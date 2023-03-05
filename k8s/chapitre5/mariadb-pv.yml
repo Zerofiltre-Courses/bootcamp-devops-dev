@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mariadb-pv
+  labels:
+    dedicated: bootcamp
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteMany
+  csi:
+    driver: cinder.csi.openstack.org
+    fsType: ext4
+    volumeHandle: 09066672-87f0-4f63-8134-cb9615f10f3f
+  storageClassName: csi-cinder-high-speed
+  volumeMode: Filesystem

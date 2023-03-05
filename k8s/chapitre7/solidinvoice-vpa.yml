@@ -1,0 +1,21 @@
+apiVersion: autoscaling.k8s.io/v1beta2
+kind: VerticalPodAutoscaler
+metadata:
+  name: solidinvoice-vpa
+  namespace: zerofiltre-bootcamp
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: solidinvoice-deployment
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+    - containerName: "solidinvoice"
+      minAllowed:
+        cpu: "300m"
+        memory: "150Mi"
+      maxAllowed:
+        cpu: "500m"
+        memory: "200Mi"

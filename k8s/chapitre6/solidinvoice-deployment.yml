@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solidinvoice-deployment
+  namespace: zerofiltre-bootcamp 
+  labels:
+    app: solidinvoice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solidinvoice
+  template:
+    metadata:
+      labels:
+        app: solidinvoice
+    spec:
+      containers:
+      - name: solidinvoice
+        image: solidinvoice/solidinvoice:2.1.2
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "250m"
+          limits:
+            memory: "200Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: solidinvoice-secret-volume
+          mountPath: /opt/srv/config/env.php
+          subPath: env.php
+      volumes: 
+      - name: solidinvoice-secret-volume
+        secret:
+          secretName: solidinvoice-secret
+      nodeSelector:
+        dedicated: bootcamp

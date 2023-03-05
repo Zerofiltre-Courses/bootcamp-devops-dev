@@ -1,0 +1,61 @@
+{{- $fullName := include "mariadb.fullname" . -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "mariadb.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ $fullName }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "mariadb.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mariadb.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+          - name: MARIADB_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ $fullName }}
+                key: MARIADB_DATABASE
+          - name: MARIADB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ $fullName }}
+                key: MARIADB_ROOT_PASSWORD
+          - name: MARIADB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ $fullName }}
+                key: MARIADB_USER
+          - name: MARIADB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ $fullName }}
+                key: MARIADB_PASSWORD  
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: {{ printf "%s-volume" $fullName }}
+            mountPath: /var/lib/mysql
+      volumes: 
+      - name: {{ printf "%s-volume" $fullName }}
+        persistentVolumeClaim:
+          claimName: {{ $fullName }}     
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      
