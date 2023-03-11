@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  app:
+    image: app-metrics
+    container_name: app-metrics
+    ports:
+      - 5000:5000

@@ -7,7 +7,6 @@ WORKDIR /app
 # Copiez les fichiers de l'application dans le conteneur
 COPY requirements.txt .
 COPY app.py .
-COPY logger.py .
 
 # Installez les dépendances de l'application
 RUN pip install -r requirements.txt
