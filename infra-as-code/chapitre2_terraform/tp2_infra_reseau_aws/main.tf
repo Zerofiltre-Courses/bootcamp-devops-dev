@@ -10,7 +10,6 @@ module "ec2_instance" {
 
 }
 
-
 provider "aws" {
   region = "eu-west-3"
 }

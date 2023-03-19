@@ -8,7 +8,7 @@ terraform {
 
   required_version = ">= 1.2.0"
 }
-
+ 
 
 resource "aws_instance" "ist_server" {
   ami           =  var.ami_id
