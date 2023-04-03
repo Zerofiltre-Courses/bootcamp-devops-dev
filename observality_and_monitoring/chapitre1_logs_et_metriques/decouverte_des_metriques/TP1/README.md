@@ -113,6 +113,9 @@ scrape_configs:
 
 Ce fichier de configuration définit un job de collecte nommé telegraf qui récupère les métriques de Telegraf toutes les 5 secondes. Le job de collecte est configuré pour récupérer les métriques de l'endpoint Prometheus de Telegraf sur le port 9273.
 
+Par cette configuration, ajoutons Telegraf en tant que cible (target) de Prometheus, nous avons donc informé Prometheus qu'il doit régulièrement interroger Telegraf pour récupérer ses métriques. Ainsi, Prometheus sera en mesure de collecter les données de Telegraf de manière continue.
+
+
 ## Étape 4: Execution de Prometheus et exploration des metriques
 
 Maintenant que la configuration est en place, nous pouvons lancer Prometheus en utilisant Docker Compose. Assurez-vous que vous êtes dans le répertoire contenant les fichiers docker-compose.yml, prometheus.yml puis exécutez la commande suivante :
