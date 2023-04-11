@@ -1,15 +1,20 @@
 import requests
+import random
 import time
 
-endpointread = "http://localhost:5000/articles/45"
-endpointwrite = "http://localhost:5000/articles"
+# URL de l'endpoint /articles
+url = 'http://localhost:5000/articles'
 
-start_time = time.time()
-end_time = start_time + 300  # 5 minutes
+# Boucle pour simuler l'activité pendant 5000 minutes
+for i in range(5000):
+    # Temps d'attente aléatoire entre 1 et 10 secondes
+    time.sleep(random.randint(1, 10))
 
-while time.time() < end_time:
-    response1 = requests.get(endpointread)
-    response2 = requests.post(endpointwrite, data={"title":"test", "content":"ok"})
-    print("Response1 Status Code:", response1.status_code)
-    print("Response2 Status Code:", response2.status_code)
-    time.sleep(1)
+    # Choix aléatoire entre GET et POST
+    method = random.choice(['GET', 'POST'])
+
+    # Envoi de la requête à l'endpoint /articles
+    response = requests.request(method, url)
+
+    # Affichage de la réponse de l'application
+    print(f'Requête {method} - Réponse {response.status_code}')
