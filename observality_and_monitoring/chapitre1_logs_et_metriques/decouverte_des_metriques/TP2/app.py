@@ -25,6 +25,8 @@ if app.debug != True:
 REQUEST_COUNT = Counter('http_request_count', 'Total HTTP Request Count', ['method', 'endpoint', 'ip']) # Un Compteur pour le nombre de requetes
 REQUEST_LATENCY = Histogram('http_request_latency_seconds', 'HTTP Request Latency', ['method', 'endpoint']) # Un Histogramme pour la latence des requetes
 ARTICLE_COUNT = Counter('article_count', 'Total posted article Count', ['id']) # Un Compteur pour le nombre d'articles postés
+ARTICLE_CREATED = Counter('article_created', 'Total posted article Count') # Un Compteur pour le nombre d'articles postés
+ARTICLE_READ = Counter('article_read', 'Total read article Count') # Un Compteur pour le nombre d'articles postés
 
 
 @app.before_request
@@ -39,8 +41,13 @@ def hello():
 
 @app.route('/articles', methods=["POST"])
 def add_article():
-    with REQUEST_LATENCY.labels(method=request.method, endpoint=request.endpoint).time():
-        return 'Hello, World!'
+    ARTICLE_CREATED.inc()
+    return 'Posted!'
+
+@app.route('/articles', methods=["GET"])
+def read_article():
+    ARTICLE_READ.inc()
+    return 'READ!'
 
 
 # Nous definissons une route pour exporter les metriques

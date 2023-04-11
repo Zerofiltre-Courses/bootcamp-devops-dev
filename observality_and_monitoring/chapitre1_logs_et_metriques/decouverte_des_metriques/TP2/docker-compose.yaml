@@ -8,6 +8,7 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
   app:
+    build: .
     image: app-metrics
     container_name: app-metrics
     ports:
