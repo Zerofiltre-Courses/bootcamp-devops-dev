@@ -24,6 +24,7 @@ services:
       - 3100:3100
     volumes:
       - ./loki/loki-config.yaml:/etc/loki/loki-config.yaml
+      - loki-storage:/loki/data
 
   promtail:
     image: grafana/promtail:latest
@@ -38,4 +39,5 @@ services:
 
 volumes:
   grafana-storage:
+  loki-storage:
 
