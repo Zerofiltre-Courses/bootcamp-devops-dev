@@ -10,7 +10,7 @@ variable "instance_type" {
 
 variable "key_name" {
   description = "Nom de la paire de clés pour l'accès SSH à l'instance EC2"
-  default     = "ssh"
+  default     = "my_key_name"
 }
 
 variable "subnet_id" {
@@ -20,7 +20,7 @@ variable "subnet_id" {
 
 variable "security_group" {
   description = "ID du groupe de sécurité pour l'instance EC2"
-  default     = "sg-e155268b"
+  default     = "zero_sg"
 }
 
 variable "tags" {
