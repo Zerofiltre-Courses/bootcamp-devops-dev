@@ -161,12 +161,12 @@ Cette commande construit l'image Docker en utilisant le fichier Dockerfile et lu
 Nous allons maintenant exécuter le conteneur Docker en utilisant la commande suivante :
 
 ```bash
-docker run -p 5000:5000 --name myapp flask-logging
+docker run -p 5000:5000 -d --name myapp flask-logging
 ```
 
 Cette commande:
 
-- Exécute le conteneur Docker en utilisant l'image flask-logging
+- Exécute, en arrière-plan, le conteneur Docker en utilisant l'image flask-logging
 - Relie le port 5000 du conteneur au port 5000 de votre machine locale
 - Nomme notre container **myapp**
 
