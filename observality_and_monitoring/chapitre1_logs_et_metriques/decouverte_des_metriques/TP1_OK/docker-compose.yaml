@@ -19,3 +19,7 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks:
       - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
