@@ -79,13 +79,22 @@ Nous allons maintenant configurer Prometheus pour qu'il puisse exporter les metr
 
 ```yaml
 global:
+
   scrape_interval: 15s
+
   evaluation_interval: 15s
 
+
+
 scrape_configs:
+
   - job_name: 'app-metrics'
+
+    metrics_path: '/metrics'
+
     static_configs:
-    - targets: ['app-metrics:5000/metrics']
+
+    - targets: ['app:5000']
 ```
 
 ## Étape 3 : Lancement de l'application Flask et de Prometheus
@@ -119,7 +128,7 @@ sudo docker build -t app-metrics .
 3. Lancer les applications avec la commande suivante :
 
 ```bash
-docker compose up
+sudo docker compose up
 ```
 
 Si tout se passe bien, vous devriez voir les logs.
@@ -133,7 +142,7 @@ Nous allons maintenant vérifier que les metriques sont bien exportées par notr
 3. Dans la console de requêtes, taper la requête suivante :
 
 ```bash
-http_request_count
+http_request_count_total
 ```
 
 4. Cliquer sur le bouton **Execute** pour exécuter la requête.
