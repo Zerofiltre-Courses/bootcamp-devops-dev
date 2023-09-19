@@ -17,7 +17,7 @@ cd flask-metrics
 2. Créer un environnement virtuel pour le projet :
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 3. Activer l'environnement virtuel :
@@ -116,7 +116,7 @@ services:
 2. Construire l'image de l'application Flask avec la commande suivante :
 
 ```bash
-docker build -t app-metrics .
+sudo docker build -t app-metrics .
 ```
 
 3. Lancer les applications avec la commande suivante :
