@@ -87,8 +87,8 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:9090']
   - job_name: 'app-metrics'
-      static_configs:
-      - targets: ['localhost:5000/metrics']
+    static_configs:
+    - targets: ['localhost:5000/metrics']
 ```
 
 ## Étape 3 : Lancement de l'application Flask et de Prometheus
@@ -122,7 +122,7 @@ sudo docker build -t app-metrics .
 3. Lancer les applications avec la commande suivante :
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 Si tout se passe bien, vous devriez voir les logs.
