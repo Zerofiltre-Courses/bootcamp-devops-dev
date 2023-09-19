@@ -83,12 +83,9 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'prometheus'
-    static_configs:
-    - targets: ['localhost:9090']
   - job_name: 'app-metrics'
     static_configs:
-    - targets: ['localhost:5000/metrics']
+    - targets: ['app-metrics:5000/metrics']
 ```
 
 ## Étape 3 : Lancement de l'application Flask et de Prometheus
