@@ -2,7 +2,7 @@
 
 ## Connexion au bac à sable 
 
-### Prérequis:
+### Prérequis : *(déjà fait dans la box vagrant)*
 
 * Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp  
   
@@ -10,7 +10,7 @@
 
 * [Installer Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/ "‌")
 * [Installer le plugin manager Krew pour kubectl](https://krew.sigs.k8s.io/docs/user-guide/setup/install/ "‌")
-* Installer le plugin oidc-login via krew : `kubectl krew install oidc-login`
+* Installer le plugin [oidc-login](https://github.com/int128/kubelogin/blob/master/docs/setup.md) via krew : `kubectl krew install oidc-login`
 
 ### A/ Persister localement les identifiants de connexion
 
@@ -22,10 +22,11 @@ Copier le fichier  [oidc-kube-config.yml](oidc-kube-config.yml) à un emplacemen
 nano ~/.bashrc
 ```
 
-Insérez-y la ligne suivante :
+Insérez-y les lignes suivante :
 
 ```
-alias zerouser='export KUBECONFIG=/chemin_du_fichier/oidc-kube-config.yml'
+alias k=kubectl
+alias zerouser='export KUBECONFIG=/home/vagrant/k8s/oidc-kube-config.yml'
 ```
 
 Enregistrez puis :
@@ -37,8 +38,11 @@ source ~/.bashrc
 
 Utilsez la commande `zerouser` pour vous connecter au cluster zerofiltre avant de rentrer les commandes kubectl.
 
-‌
 Si vous avez plusieurs clusters (boulot, zerofiltre, perso), définissez un alias pour chacun afin de changer facilement de contexte.
+
+Utilisez l'alias `k` en lieu et place de `kubectl`
+
+‌
 
 ‌
 
