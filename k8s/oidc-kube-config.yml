@@ -24,6 +24,7 @@ users:
       - --oidc-issuer-url=https://keycloak.zerofiltre.tech/auth/realms/zerofiltre-k8s-oidc-authentication
       - --oidc-client-id=k8s-oidc-auth
       - --oidc-client-secret=17c5f81c-d666-484d-9b77-8e32a8945067
+      - --listen-address=0.0.0.0:8000,0.0.0.0:18000
       - --grant-type=authcode
       command: kubectl
       env: null

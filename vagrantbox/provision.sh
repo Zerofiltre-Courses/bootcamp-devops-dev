@@ -30,27 +30,15 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client --output=yaml
 
+
 # Install Git
 sudo apt-get install -y git
 
 
-# Install Krew
-(
-  set -x; cd "$(mktemp -d)" &&
-  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-  KREW="krew-${OS}_${ARCH}" &&
-  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-  tar zxvf "${KREW}.tar.gz" &&
-  ./"${KREW}" install krew
-)
-
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-# Install oidc-login
-kubectl krew install oidc-login
-
 # Adding aliases and env vars
+VAGRANT_HOME=/home/vagrant
+echo "alias k=kubectl" | sudo tee -a $VAGRANT_HOME/.bashrc
+echo "export KUBECONFIG=$VAGRANT_HOME/k8s/oidc-kube-config.yml" | sudo tee -a $VAGRANT_HOME/.bashrc
 
 git config --global alias.co checkout
 git config --global alias.br branch

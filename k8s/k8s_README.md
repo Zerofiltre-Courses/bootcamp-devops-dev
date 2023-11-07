@@ -2,19 +2,19 @@
 
 ## Connexion au bac à sable 
 
-### Prérequis : *(déjà fait dans la box vagrant)*
+### Prérequis : 
 
 * Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp  
   
-* Téléchargez le fichier [oidc-kube-config.yml](oidc-kube-config.yml)
+* Téléchargez le fichier [oidc-kube-config.yml](oidc-kube-config.yml) *(déjà fait dans la box vagrant)*
 
-* [Installer Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/ "‌")
+* [Installer Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/ "‌") *(déjà fait dans la box vagrant)*
 * [Installer le plugin manager Krew pour kubectl](https://krew.sigs.k8s.io/docs/user-guide/setup/install/ "‌")
 * Installer le plugin [oidc-login](https://github.com/int128/kubelogin/blob/master/docs/setup.md) via krew : `kubectl krew install oidc-login`
 
-### A/ Persister localement les identifiants de connexion
+### A/ Persister localement les identifiants de connexion *(déjà fait dans la box vagrant)*
 
-Copier le fichier  [oidc-kube-config.yml](oidc-kube-config.yml) à un emplacement et définissez le chemin ABSOLU vers ce fichier sous la variable d'environnement: KUBECONFIG
+Copier le fichier  [oidc-kube-config.yml](oidc-kube-config.yml) à un emplacement et définissez le chemin ABSOLU vers ce fichier sous la variable d'environnement: KUBECONFIG 
 
 ‌
 
@@ -52,11 +52,12 @@ Utilisez l'alias `k` en lieu et place de `kubectl`
 
 Taper une commande `kubectl` , Ex: `kubectl get pods -n 
 <username>`  
-Une page du navigateur s'ouvre pour authentification:  
+
+et ouvrez `localhost:8000` dans un navigateur de votre machine pour authentification:   
 
 Entrez le username / password envoyés par mail après votre inscription au bootcamp
 
-Si vous voyez la liste des pods, alors vous êtes correctement authentifiés.
+Si vous voyez le message `No resources found in <username> namespace.`, alors vous êtes correctement authentifiés.
 
 Si vous avez un **permission denied**, vérifiez auprès de l'administrateur que vous avez bien le droit de faire ce que vous souhaitez faire :
 
