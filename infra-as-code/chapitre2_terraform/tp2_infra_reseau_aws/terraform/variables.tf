@@ -1,16 +1,16 @@
 variable "ami_id" {
   description = "ID de l'AMI à utiliser pour l'instance EC2"
-  default = "ami-05b457b541faec0ca"
+  default     = "ami-05b457b541faec0ca"
 }
 
 variable "instance_type" {
- description = "Type d'instance EC2"  
- default     = "t2.micro"
-} 
+  description = "Type d'instance EC2"
+  default     = "t2.micro"
+}
 
 variable "key_name" {
   description = "Nom de la paire de clés pour l'accès SSH à l'instance EC2"
-  default     = "ssh"
+  default     = "bootcamp-iac"
 }
 
 variable "subnet_id" {
@@ -24,13 +24,19 @@ variable "security_group" {
 }
 
 variable "tags" {
- description = "Tags à appliquer à l'instance EC2"  
- type    = map(string)
-   default = {}
+  description = "Tags à appliquer à l'instance EC2"
+  type        = map(string)
+  default     = {}
 }
 
 variable "instance_count" {
   description = "Nombre d'instances EC2 à créer"
   type        = number
   default     = 1
+}
+
+
+variable "region" {
+  description = "votre region"
+  default     = "eu-west-3"
 }
