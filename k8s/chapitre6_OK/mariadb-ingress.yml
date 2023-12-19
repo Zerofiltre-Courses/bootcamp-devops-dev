@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: k8slive
+  name: mariadb-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: k8slive.mariadb.zerofiltre.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mariadb-svc
+            port:
+              number: 3306
+  tls: 
+  - hosts:
+    - k8slive.mariadb.zerofiltre.tech
+    secretName: k8slive-mariadb-zerofiltre-ingress-cert

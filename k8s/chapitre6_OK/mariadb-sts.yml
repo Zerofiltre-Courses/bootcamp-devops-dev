@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb-sts
+  namespace: k8slive
+  labels:
+    app: mariadb
+spec:
+  serviceName: "mariadb-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb 
+        image: mariadb:10.7.7
+        ports:
+        - containerPort: 3306
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        envFrom:
+          - configMapRef:
+              name: mariadb-config
+          - secretRef:
+              name: mariadb-secrets
+        volumeMounts:
+         - name: mariadb-volume
+           mountPath: /var/lib/mysql 
+      volumes: 
+      - name: mariadb-volume
+        persistentVolumeClaim:
+          claimName: mariadb-pvc           
