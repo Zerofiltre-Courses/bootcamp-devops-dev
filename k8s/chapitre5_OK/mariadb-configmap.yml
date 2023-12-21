@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
- name: mariadb-config
- namespace: k8slive
-data:
-  MARIADB_DATABASE: solidinvoice
