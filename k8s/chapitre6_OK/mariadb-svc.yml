@@ -4,6 +4,7 @@ metadata:
   name: mariadb-svc
   namespace: k8slive
 spec:
+  clusterIP: None
   selector:
     app: mariadb
   ports:
