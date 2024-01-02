@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: load-generator
+  namespace: k8slive
+spec:
+  restartPolicy: Never
+  containers:
+  - name: load-generator
+    image: busybox:1.28
+    command: ["/bin/sh", "-c", "while sleep 0.01; do wget -q -O- http://solidinvoice-svc; done"]
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "100m"
