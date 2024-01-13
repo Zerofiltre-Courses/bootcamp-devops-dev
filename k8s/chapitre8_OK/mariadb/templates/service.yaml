@@ -5,11 +5,10 @@ metadata:
   labels:
     {{- include "mariadb.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  clusterIP: None
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      name: http
   selector:
     {{- include "mariadb.selectorLabels" . | nindent 4 }}
