@@ -1,0 +1,17 @@
+{{- $root := . -}}
+{{- range .Values.volumes }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .persistentVolumeClaim.claimName }}
+  labels:
+    {{- include "mariadb.labels" $ | nindent 4 }}
+spec:
+  resources:
+    requests:
+      storage: {{ $root.Values.pvc.requestStorage }}
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: {{ $root.Values.pvc.storageClassName }}
+{{- end }}
