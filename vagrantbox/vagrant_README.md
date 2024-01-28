@@ -16,7 +16,7 @@ Cette box est une machine virtuelle vagrant qui contient les pre-requis pour le 
 
 Pour installer la box, il faut:
 
-- Cloner le repo git
+- Cloner le repo git: `git clone <url_du_repo>.git`
 - Se placer dans le dossier vagrantbox
 - Lancer la commande `vagrant up`
 
