@@ -14,7 +14,7 @@ Ce TP vous permettra d'acquérir des connaissances pratiques sur la collecte et 
 
 ## Prérequis
 
-- La box vagent (Si vous ne l'avez pas encore telechargez le guide ici)
+- [La box vagrant](../../../../vagrantbox/vagrant_README.md)
 
 
 ## Étape 1 : Configuration de Telegraf
