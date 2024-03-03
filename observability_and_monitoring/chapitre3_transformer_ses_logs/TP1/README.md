@@ -39,7 +39,6 @@ cd bootcamp-devops-dev/observability_and_monitoring/chapitre3_transformer_ses_lo
 Vous decouvrirez dans ce répertoire les fichiers et répertoires suivants:
 
 - *app-logging* : Le répertoire contenant l'application web
-- *grafana* : Le répertoire contenant les fichiers de configuration de Grafana
 - *loki* : Le répertoire contenant les fichiers de configuration de Loki
 - *promtail* : Le répertoire contenant les fichiers de configuration de Promtail
 - *docker-compose.yaml* : Le fichier de configuration de docker-compose
@@ -57,7 +56,7 @@ Dans le fichier *promtail/promtail-config.yaml*, nous avons défini un pipeline 
 - La page visitée par l'utilisateur (path)
 - Le navigateur utilisé par l'utilisateur (user_agent)
 
-4. Pipeline de traitement
+1. Pipeline de traitement
 
 ```yaml
     pipeline_stages:
