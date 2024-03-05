@@ -1,4 +1,4 @@
-# Ezploiter vos logs avec Promtail et Loki 
+# Exploitez vos logs avec Promtail et Loki 
 
 ## Objectifs
 
@@ -6,7 +6,7 @@
 - Extraire les données de vos logs avec Promtail en utilisant des pipelines de traitement
 - Créer des tableaux de bord pour visualiser les données de vos logs avec Grafana
 
-Nous créerons un tableau de bord grfana pour visualiser le nombre de requêtes par seconde, la repartition des utilisateurs par pays, les pages les plus visitées et systèmes d'exploitation les plus utilisés.
+Nous créerons un tableau de bord grafana pour visualiser le nombre de requêtes par seconde, la repartition des utilisateurs par pays, les pages les plus visitées et systèmes d'exploitation les plus utilisés.
 
 ## Prérequis
 
@@ -105,7 +105,16 @@ Il est défini dans le fichier plus précisément dans la section pipeline_stage
 
 4. Lancer l'application
 
-Dqns le répertoire du TP, se trouve un ficher docker-compose.yaml. Ce fichier permet de lancer l'application web et toute la stack loki/grafana/promtail
+Tout d'abord veuillez télécharger la base de données Geoip dont nous aurons besoin dans le répertoire `promtail`
+
+Pour ce faire, placez-vous sous le répertoire `promtail` et appliquez la commande suivante:
+
+```
+sudo wget -O geolite2-city.mmdb https://git.io/GeoLite2-City.mmdb 
+
+```
+
+Dans le répertoire du TP, se trouve un ficher docker-compose.yaml. Ce fichier permet de lancer l'application web et toute la stack loki/grafana/promtail
 
 ```bash
 docker-compose up -d
@@ -142,9 +151,19 @@ curl http://localhost:3000
 
 - Vérifier que les logs sont bien envoyés à Loki
 
+
+Avec Curl:  
+
+```
+curl "http://localhost:3100/loki/api/v1/query_range?query=%7Bname%3D%22app%22%7D"
+
+``` 
+
+Dans le naivgateur:  
+
 ```bash
 curl http://localhost:3100/loki/api/v1/query_range?query={name="app"}
-```
+```  
 
 A ce stade, vous devriez voir les logs de votre application dans le navigateur.
 
