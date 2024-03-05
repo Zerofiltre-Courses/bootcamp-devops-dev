@@ -5,7 +5,14 @@ services:
     image: app-logging                                                           
     container_name: app-logging                                                  
     ports:                                                                       
-      - 5000:5000                                                                
+      - 5000:5000 
+
+  locust:                                                                           
+    build: ./loadgenerator                                                        
+    image: loadgenerator                                                           
+    container_name: loadgenerator                                                  
+    ports:                                                                       
+      - 8089:8089                                                                
                                                                                  
   #grafana:                                                                      
     #image: grafana/grafana:latest                                               
