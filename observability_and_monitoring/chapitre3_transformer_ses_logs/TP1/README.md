@@ -181,6 +181,36 @@ A ce stade, vous devriez voir les logs de votre application dans le navigateur.
 
 Vous devriez voir une notification indiquant que la source de données a été ajoutée avec succès et un message indiquant que la connexion a réussi et que les étiquettes ont été récupérées.
 
+### Exploration de données
+
+Nous allons explorer les logs dans un premier temps:
+
+Cliquer sur l'onglet explore dans le menu de gauche
+Choisissez la datasource Loki
+
+Dans la zone de requêtage, choisir name = app et observez les logs apparaître.
+N'hésitez pas à dérouler chaque ligne de logs, et cliquer sur les filtres afin de mieux cibler les résultats.
+
+#### Lecture des résultats 
+
+* Graphe
+    Vous permet de visualiser le volume de logs par unité de temps, cette unité dépend du zoom qui est fait.
+
+* Logs 
+    Fenêtre vous permettant d'explorer les logs
+    Vous pouvez, enjoliver le JSON, ramener les longues lignes à la lignes
+    Dérouler le json et pour chaque champ:
+      Exclure/inclure sa valeur de la requête
+      Choisir d'afficher uniquement ce champ 
+      Obtenir les statistiques de valeurs du champ : Ex: Level contient 90% INFO et 7% warning 3% ERROR
+
+  
+
+
+
+#### Mode live
+Les résultats ne se rafraîchissent pas tous seuls, en activant le mode live vous verrez ls logs arriver aussitôt qu'ils ont été produits. Ce qui peut s'avérer utile lors des séances de debugging.
+
 ### Création du dashboard
 
 - Cliquez sur dashboard dans le menu de gauche.
