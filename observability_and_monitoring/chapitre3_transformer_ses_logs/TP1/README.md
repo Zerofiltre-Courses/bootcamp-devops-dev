@@ -213,6 +213,12 @@ Les résultats ne se rafraîchissent pas tous seuls, en activant le mode live vo
 
 ### Création du dashboard
 
+L'exploration de logs ne saurait être suffisante pour un profil non technique.
+Nous avons besoin de créer un dashboard qui permettra, au métier par exemple de voir d'un coup d'oeil quels est le taux d'erreur par rapport au taux d'info dans nos logs.
+
+Nous allons utiliser LogQL un langage de requête pour explorer les logs.
+
+
 - Cliquez sur dashboard dans le menu de gauche.
 - Cliquez sur le bouton nouveau un tableau de bord.
 
@@ -222,4 +228,11 @@ Puis aller dans paramètres du tableau de bord modifier le nom du tableau de bor
 
 - Dans la section requête, sélectionnez la source de données Loki que vous avez créée précédemment.
 
-- Dans la section requête, entrez {name="app"} dans le champ Requête.
+- Dans la section requête, entrez dans le champ Requête la ligne suivante:
+
+```
+sum by(level) (count_over_time({job="app_logging_logs", level=~"INFO|ERROR"} [1h]))
+```
+
+Sélectionnez la visualisation PIE Chart et observez le résultat.
+Puis sauvegardez et appliquez.
