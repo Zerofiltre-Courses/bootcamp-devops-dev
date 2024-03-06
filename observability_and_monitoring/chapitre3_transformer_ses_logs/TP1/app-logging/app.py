@@ -24,11 +24,22 @@ if app.debug != True:
 @app.before_request
 def before():
     app.logger.info("request")   # Ajout d'une ligne de journalisation pour chaque requête
+  
+@app.after_request
+def after(response):
+    app.logger.info("response")
+    return response
+
 
 # Route principale de l'application
 @app.route('/')
 def main():
     return "ok"   # Renvoie une chaîne de caractères "ok"
+
+@app.route('/error')
+def error():
+    app.logger.error("An error has occurred!")
+    return "An error occurred", 500
 
 if __name__ == '__main__':
   app.run(debug=True)   # Lancement de l'application Flask en mode debug
