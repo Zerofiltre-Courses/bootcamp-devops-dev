@@ -2,7 +2,7 @@
 
 # Vagrant provisioning script for Ubuntu 20.04 LTS
 
-# Docker installation
+echo "=========== docker install ==========="
 
 sudo apt-get update
 sudo apt-get install \
@@ -17,11 +17,25 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io jq docker-compose
+sudo usermod -aG docker vagrant
+
+echo "=========== Java install ==========="
+sudo apt install -y default-jdk
+echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.bashrc
+source ~/.bashrc
+echo $JAVA_HOME
+java -version
+
+echo "=========== Maven install ==========="
+sudo apt install -y maven
+mvn -version
+
+
 
 sudo usermod -aG docker vagrant
 
-# Kubectl install
+echo "=========== Kubectl install ==========="
 
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
@@ -29,12 +43,24 @@ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client --output=yaml
 
-# Install Git
+
+echo "=========== git install ==========="
 sudo apt-get install -y git
 
-# Install Krew
+echo "=========== Git install results =============="
+git --version
 
-## Download Krew
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.slog "log --graph --all --topo-order --pretty='format:%h %ai %s%d (%an)'"
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+echo "=========== Krew install =============="
+
+echo "=========== Download Krew =============="
 (
   set -x; cd "$(mktemp -d)" &&
   OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
@@ -51,7 +77,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 ## Execute krew command
 kubectl krew
 
-# Install Helm
+echo "=========== Helm install =============="
 
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
 sudo apt-get install apt-transport-https --yes
@@ -60,14 +86,9 @@ sudo apt-get update
 sudo apt-get install helm
 
 
-# Adding aliases and env vars
+echo "=========== Adding aliases =============="
 VAGRANT_HOME=/home/vagrant
 echo "alias k=kubectl" | sudo tee -a $VAGRANT_HOME/.bashrc
 echo "export KUBECONFIG=$VAGRANT_HOME/k8s/oidc-kube-config.yml" | sudo tee -a $VAGRANT_HOME/.bashrc
 
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global alias.slog "log --graph --all --topo-order --pretty='format:%h %ai %s%d (%an)'"
 

@@ -2,11 +2,12 @@ Vagrant.configure("2") do |config|
     config.vm.define "zulvg"
     config.vm.box = "ubuntu/focal64"
     config.vm.provider "virtualbox" do |vb|
-      vb.memory = "2048"
-      vb.cpus = 2
+      vb.memory = "4096"
+      vb.cpus = 4
     end
     config.vm.boot_timeout = 600 # Wait 10 mins for the VM to boot
-    config.vm.network "forwarded_port", guest: 80, host: 8080
+    config.vm.network "forwarded_port", guest: 9000, host: 9000
+    config.vm.network "forwarded_port", guest: 8080, host: 8080
     config.vm.network "forwarded_port", guest: 8000, host: 8000
     config.vm.network "forwarded_port", guest: 18000, host: 18000
     config.vm.network "forwarded_port", guest: 3000, host: 3000
