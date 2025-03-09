@@ -1,10 +1,9 @@
 ## Objectif
-Le but de ce TP est de créer des alertes dans alertmanager pour vous notifer par mail, lorsque le taux d'utilisation de vos ressources,
-cpu et mémoire dépassent un certain seuil. Nous en profiterons pour tester la notion d'inhibition.
+Le but de ce TP est de créer une alerte dans alertmanager pour vous notifer lorsque le taux d'utilisation de la mémoire de votre serveur dépasse 90%.
 
 ## Prérequis
 
-- Vous êtes connectés à la box vagrant fournie avec ce TP et vous avez cloné ce projet 
+- Vous êtes connectés à la box vagrant fournie avec ce TP et vous avez cloné ce projet
 - Deux comptes gmail
 
 

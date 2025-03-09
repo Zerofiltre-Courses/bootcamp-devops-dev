@@ -1,0 +1,29 @@
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'philippe.guemkamsimo@gmail.com'
+  smtp_auth_username: 'philippe.guemkamsimo@gmail.com'
+  smtp_auth_password: 'password'
+
+route:
+  receiver: ops
+  group_by: [ 'alertname' ]
+  routes:
+    - receiver: opsandmanagers
+      matchers:
+        - severity =~ "critical"
+
+receivers:
+  - name: ops
+    email_configs:
+      - to: 'info@zerofiltre.tech'
+  - name: opsandmanagers
+    email_configs:
+      - to: 'info@zerofiltre.tech,philippesimo@zerofiltre.tech'
+
+inhibit_rules:
+  - source_matchers:
+      - 'severity = critical'
+    target_matchers:
+      - 'severity = warning'
+    equal:
+      - 'alertname'

@@ -1,0 +1,29 @@
+groups:
+  - name: bootcamp_alert
+    rules:
+      - alert: HighMemoryUsage
+        expr: mem_available_percent > 70
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage on {{ $labels.instance }} has been above 90% for more than 5 minutes."
+
+      - alert: HighMemoryUsage
+        expr: mem_available_percent > 50
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage on {{ $labels.instance }} has been above 70% for more than 5 minutes."
+
+      - alert: HighCPUUsage
+        expr: 100 - cpu_usage_idle{cpu!="cpu-total"} > 90
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage for {{ $labels.cpu }}  on {{ $labels.instance }} has been above 90% for more than 5 minutes."
