@@ -3,18 +3,14 @@ Le but de ce TP est de créer une alerte dans alertmanager pour vous notifer lor
 
 ## Prérequis
 
-- Vous êtes connectés à la box vagrant fournie avec ce TP et vous avez cloné ce projet 
+- La box vagrant fournie avec ce TP
 - Un serveur SMTP
 
 
 ## Guide
 
 ### 1. Configuration des alertes
-Déplacez-vous dans le projet du chapitre4 :
 
-```shell
-cd observability_and_monitoring/chapitre4_configurer_les_alertes/TP1
-```
 Pour créer des alertes dans Alertmanager, vous devez d'abord configurer vos règles de surveillance dans Prometheus. Cela peut être fait en utilisant le langage de requête Prometheus (PromQL), qui vous permet de spécifier les critères de déclenchement des alertes.
 
 - Créer un fichier `alert.rules` dans le dossier `/etc/prometheus/rules/` de votre serveur prometheus
