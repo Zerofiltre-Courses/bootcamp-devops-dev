@@ -3,7 +3,7 @@ Le but de ce TP est de créer une alerte dans alertmanager pour vous notifer lor
 
 ## Prérequis
 
-- Vous êtes connectés à la box vagrant fournie avec ce TP et vous avez cloné ce projet 
+- Vous êtes connectés à la box vagrant fournie avec ce TP et vous avez cloné ce projet
 - Deux comptes gmail
 
 

@@ -18,7 +18,7 @@
 
 * Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp
 
-* [Vagrant box configurée](../vagrantbox/vagrant_README.md)
+* [Vagrant box configurée](../vagrantbox/README.md)
 
 * [Installez le plugin manager Krew pour kubectl](https://krew.sigs.k8s.io/docs/user-guide/setup/install/ "‌")
 * Installez le plugin [oidc-login](https://github.com/int128/kubelogin/blob/master/docs/setup.md) via krew : `kubectl krew install oidc-login`
