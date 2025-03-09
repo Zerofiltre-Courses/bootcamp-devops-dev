@@ -5,7 +5,7 @@
 ### Prérequis : 
 
 * Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp
-* [Vagrant box configurée](../vagrantbox/vagrant_README.md)
+* [Vagrant box configurée](../vagrantbox/README)
   
 * Téléchargez le fichier [oidc-kube-config.yml](oidc-kube-config.yml) *(déjà fait dans la box vagrant)*
 
