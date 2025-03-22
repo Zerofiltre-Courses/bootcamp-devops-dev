@@ -4,18 +4,28 @@
 
 ### Prérequis : 
 
+#### Si vous installez sur votre PC en local
+
 * Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp
-* [Vagrant box configurée](../vagrantbox/vagrant_README.md)
   
-* Téléchargez le fichier [oidc-kube-config.yml](oidc-kube-config.yml) *(déjà fait dans la box vagrant)*
+* Téléchargez le fichier [oidc-kube-config.yml](oidc-kube-config.yml)
 
-* [Installer Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/ "‌") *(déjà fait dans la box vagrant)*
-* [Installer le plugin manager Krew pour kubectl](https://krew.sigs.k8s.io/docs/user-guide/setup/install/ "‌")
-* Installer le plugin [oidc-login](https://github.com/int128/kubelogin/blob/master/docs/setup.md) via krew : `kubectl krew install oidc-login`
+* [Installez Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/ "‌")
+* [Installez le plugin manager Krew pour kubectl](https://krew.sigs.k8s.io/docs/user-guide/setup/install/ "‌")
+* Installez le plugin [oidc-login](https://github.com/int128/kubelogin/blob/master/docs/setup.md) via krew : `kubectl krew install oidc-login`
 
-### A/ Persister localement les identifiants de connexion *(déjà fait dans la box vagrant)*
+#### Si vous souhaitez utiliser la machine vagrant
 
-Copier le fichier  [oidc-kube-config.yml](oidc-kube-config.yml) à un emplacement et définissez le chemin ABSOLU vers ce fichier sous la variable d'environnement: KUBECONFIG 
+* Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp
+
+* [Vagrant box configurée](../vagrantbox/vagrant_README.md)
+
+* [Installez le plugin manager Krew pour kubectl](https://krew.sigs.k8s.io/docs/user-guide/setup/install/ "‌")
+* Installez le plugin [oidc-login](https://github.com/int128/kubelogin/blob/master/docs/setup.md) via krew : `kubectl krew install oidc-login`
+
+### A/ Persistez localement les identifiants de connexion *(pas besoin de faire cette étape si vous utilisez la machine vagrant)*
+
+Copiez le fichier  [oidc-kube-config.yml](oidc-kube-config.yml) à un emplacement et définissez le chemin ABSOLU vers ce fichier sous la variable d'environnement: KUBECONFIG 
 
 ‌
 
@@ -49,9 +59,9 @@ Utilisez l'alias `k` en lieu et place de `kubectl`
 
 ---
 
-### B/ Vérifier l'accès
+### B/ Vérifiez l'accès
 
-Taper une commande `kubectl` , Ex: `kubectl get pods -n 
+Tapez une commande `kubectl` , Ex: `kubectl get pods -n 
 <username>`  
 
 et ouvrez `localhost:8000` dans un navigateur de votre machine pour authentification:   
@@ -66,8 +76,8 @@ Copiez le message d’erreur : `User xxxxxxx#yyyyyy can not access ...`  et envo
 
 **⚠️ Ps: En cas de 53x Bad Gateway : 2solutions :**  
 
-Vider les cookies provenant de keycloak.zerofiltre.tech et essayez de nouveau.
+Videz les cookies provenant de keycloak.zerofiltre.tech et essayez de nouveau.
 
-Copier le lien dans un navigateur privé et essayez de nouveau.  
+Copiez le lien dans un navigateur privé et essayez de nouveau.  
 
 🥳 Bravo, vous êtes connectés à votre bac à sable personnel kubernetes
