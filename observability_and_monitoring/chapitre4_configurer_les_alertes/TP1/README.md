@@ -1,5 +1,6 @@
 ## Objectif
-Le but de ce TP est de créer une alerte dans alertmanager pour vous notifer lorsque le taux d'utilisation de la mémoire de votre serveur dépasse 90%.
+Le but de ce TP est de créer des alertes dans alertmanager pour vous notifer par mail, lorsque le taux d'utilisation de vos ressources,
+cpu et mémoire dépassent un certain seuil. Nous en profiterons pour tester la notion d'inhibition.
 
 ## Prérequis
 
