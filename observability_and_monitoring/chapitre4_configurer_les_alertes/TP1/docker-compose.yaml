@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   telegraf:
     image: telegraf
@@ -29,3 +27,7 @@ services:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
     networks:
       - monitoring
+
+networks:
+  monitoring:
+    driver: bridge

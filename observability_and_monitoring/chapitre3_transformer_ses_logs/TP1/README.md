@@ -1,4 +1,4 @@
-# Ezploiter vos logs avec Promtail et Loki 
+# Exploitez vos logs avec Promtail et Loki 
 
 ## Objectifs
 
@@ -6,7 +6,7 @@
 - Extraire les données de vos logs avec Promtail en utilisant des pipelines de traitement
 - Créer des tableaux de bord pour visualiser les données de vos logs avec Grafana
 
-Nous créerons un tableau de bord grfana pour visualiser le nombre de requêtes par seconde, la repartition des utilisateurs par pays, les pages les plus visitées et systèmes d'exploitation les plus utilisés.
+Nous créerons un tableau de bord grafana pour visualiser le nombre de requêtes par seconde, la repartition des utilisateurs par pays, les pages les plus visitées et systèmes d'exploitation les plus utilisés.
 
 ## Prérequis
 
@@ -39,7 +39,6 @@ cd bootcamp-devops-dev/observability_and_monitoring/chapitre3_transformer_ses_lo
 Vous decouvrirez dans ce répertoire les fichiers et répertoires suivants:
 
 - *app-logging* : Le répertoire contenant l'application web
-- *grafana* : Le répertoire contenant les fichiers de configuration de Grafana
 - *loki* : Le répertoire contenant les fichiers de configuration de Loki
 - *promtail* : Le répertoire contenant les fichiers de configuration de Promtail
 - *docker-compose.yaml* : Le fichier de configuration de docker-compose
@@ -57,7 +56,7 @@ Dans le fichier *promtail/promtail-config.yaml*, nous avons défini un pipeline 
 - La page visitée par l'utilisateur (path)
 - Le navigateur utilisé par l'utilisateur (user_agent)
 
-4. Pipeline de traitement
+1. Pipeline de traitement
 
 ```yaml
     pipeline_stages:
@@ -106,7 +105,16 @@ Il est défini dans le fichier plus précisément dans la section pipeline_stage
 
 4. Lancer l'application
 
-Dqns le répertoire du TP, se trouve un ficher docker-compose.yaml. Ce fichier permet de lancer l'application web et toute la stack loki/grafana/promtail
+Tout d'abord veuillez télécharger la base de données Geoip dont nous aurons besoin dans le répertoire `promtail`
+
+Pour ce faire, placez-vous sous le répertoire `promtail` et appliquez la commande suivante:
+
+```
+sudo wget -O geolite2-city.mmdb https://git.io/GeoLite2-City.mmdb 
+
+```
+
+Dans le répertoire du TP, se trouve un ficher docker-compose.yaml. Ce fichier permet de lancer l'application web et toute la stack loki/grafana/promtail
 
 ```bash
 docker-compose up -d
@@ -143,9 +151,19 @@ curl http://localhost:3000
 
 - Vérifier que les logs sont bien envoyés à Loki
 
+
+Avec Curl:  
+
+```
+curl "http://localhost:3100/loki/api/v1/query_range?query=%7Bname%3D%22app%22%7D"
+
+``` 
+
+Dans le naivgateur:  
+
 ```bash
 curl http://localhost:3100/loki/api/v1/query_range?query={name="app"}
-```
+```  
 
 A ce stade, vous devriez voir les logs de votre application dans le navigateur.
 
@@ -163,7 +181,43 @@ A ce stade, vous devriez voir les logs de votre application dans le navigateur.
 
 Vous devriez voir une notification indiquant que la source de données a été ajoutée avec succès et un message indiquant que la connexion a réussi et que les étiquettes ont été récupérées.
 
+### Exploration de données
+
+Nous allons explorer les logs dans un premier temps:
+
+Cliquer sur l'onglet explore dans le menu de gauche
+Choisissez la datasource Loki
+
+Dans la zone de requêtage, choisir name = app et observez les logs apparaître.
+N'hésitez pas à dérouler chaque ligne de logs, et cliquer sur les filtres afin de mieux cibler les résultats.
+
+#### Lecture des résultats 
+
+* Graphe
+    Vous permet de visualiser le volume de logs par unité de temps, cette unité dépend du zoom qui est fait.
+
+* Logs 
+    Fenêtre vous permettant d'explorer les logs
+    Vous pouvez, enjoliver le JSON, ramener les longues lignes à la lignes
+    Dérouler le json et pour chaque champ:
+      Exclure/inclure sa valeur de la requête
+      Choisir d'afficher uniquement ce champ 
+      Obtenir les statistiques de valeurs du champ : Ex: Level contient 90% INFO et 7% warning 3% ERROR
+
+  
+
+
+
+#### Mode live
+Les résultats ne se rafraîchissent pas tous seuls, en activant le mode live vous verrez ls logs arriver aussitôt qu'ils ont été produits. Ce qui peut s'avérer utile lors des séances de debugging.
+
 ### Création du dashboard
+
+L'exploration de logs ne saurait être suffisante pour un profil non technique.
+Nous avons besoin de créer un dashboard qui permettra, au métier par exemple de voir d'un coup d'oeil quels est le taux d'erreur par rapport au taux d'info dans nos logs.
+
+Nous allons utiliser LogQL un langage de requête pour explorer les logs.
+
 
 - Cliquez sur dashboard dans le menu de gauche.
 - Cliquez sur le bouton nouveau un tableau de bord.
@@ -174,4 +228,11 @@ Puis aller dans paramètres du tableau de bord modifier le nom du tableau de bor
 
 - Dans la section requête, sélectionnez la source de données Loki que vous avez créée précédemment.
 
-- Dans la section requête, entrez {name="app"} dans le champ Requête.
+- Dans la section requête, entrez dans le champ Requête la ligne suivante:
+
+```
+sum by(level) (count_over_time({job="app_logging_logs", level=~"INFO|ERROR"} [1h]))
+```
+
+Sélectionnez la visualisation PIE Chart et observez le résultat.
+Puis sauvegardez et appliquez.
