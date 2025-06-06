@@ -4,9 +4,9 @@
 
 ### Prérequis : 
 
-#### Si vous installez sur votre PC en local
+#### Si vous souhaitez installer les outils sur votre PC en local
 
-* Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp
+* Retrouvez les identifiants : username / password envoyés par mail après votre inscription au parcours (pas reçus ? contactez info@zerofiltre.tech)
   
 * Téléchargez le fichier [oidc-kube-config.yml](oidc-kube-config.yml)
 
@@ -16,12 +16,14 @@
 
 #### Si vous souhaitez utiliser la machine vagrant
 
-* Retrouvez les identifiants : username / password envoyés par mail après votre inscription au bootcamp
+* Retrouvez les identifiants : username / password envoyés par mail après votre inscription au parcours (pas reçus ? contactez info@zerofiltre.tech)
 
 * [Vagrant box configurée](../vagrantbox/README.md)
 
 * [Installez le plugin manager Krew pour kubectl](https://krew.sigs.k8s.io/docs/user-guide/setup/install/ "‌")
 * Installez le plugin [oidc-login](https://github.com/int128/kubelogin/blob/master/docs/setup.md) via krew : `kubectl krew install oidc-login`
+
+
 
 ### A/ Persistez localement les identifiants de connexion *(pas besoin de faire cette étape si vous utilisez la machine vagrant)*
 
@@ -37,7 +39,7 @@ Insérez-y les lignes suivante :
 
 ```
 alias k=kubectl
-alias zerouser='export KUBECONFIG=/home/vagrant/k8s/oidc-kube-config.yml'
+alias zerouser='export KUBECONFIG=/mon/chemin/absolu/oidc-kube-config.yml'
 ```
 
 Enregistrez puis :
@@ -55,9 +57,7 @@ Utilisez l'alias `k` en lieu et place de `kubectl`
 
 ‌
 
-‌
 
----
 
 ### B/ Vérifiez l'accès
 
@@ -66,17 +66,17 @@ Tapez une commande `kubectl` , Ex: `kubectl get pods -n
 
 et ouvrez `localhost:8000` dans un navigateur de votre machine pour authentification:   
 
-Entrez le username / password envoyés par mail après votre inscription au bootcamp
+Entrez le username / password envoyés par mail après votre inscription au parcours
 
 Si vous voyez le message `No resources found in <username> namespace.`, alors vous êtes correctement authentifiés.
 
 Si vous avez un **permission denied**, vérifiez auprès de l'administrateur que vous avez bien le droit de faire ce que vous souhaitez faire :
 
-Copiez le message d’erreur : `User xxxxxxx#yyyyyy can not access ...`  et envoyez à l'admin du cluster
+Copiez le message d’erreur : `User xxxxxxx#yyyyyy can not access ...`  et envoyez à l'admin du cluster ou à info@zerofiltre.tech
 
-**⚠️ Ps: En cas de 53x Bad Gateway : 2solutions :**  
+**⚠️ Ps: En cas de 53x Bad Gateway : 2 solutions :**  
 
-Videz les cookies provenant de keycloak.zerofiltre.tech et essayez de nouveau.
+Videz les cookies de votre navigateur provenant de keycloak.zerofiltre.tech et essayez de nouveau.
 
 Copiez le lien dans un navigateur privé et essayez de nouveau.  
 
